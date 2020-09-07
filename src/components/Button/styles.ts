@@ -7,10 +7,11 @@ export const Container = styled(RectButton)`
   background: #ff9900;
   border-radius: 10px;
 
-  justify-content: center;
-  align-items: center;
-
   margin-top: 8px;
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ButtonText = styled.Text`
