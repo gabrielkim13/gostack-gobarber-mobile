@@ -14,13 +14,20 @@ interface SignInCredentials {
   password: string;
 }
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
+}
+
 interface AuthState {
-  user: Record<string, unknown>;
+  user: User;
   token: string;
 }
 
 interface AuthContextData {
-  user: Record<string, unknown>;
+  user: User;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
   isLoading: boolean;
@@ -44,6 +51,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         const token = tokenInfo[1];
 
         setData({ user, token });
+
+        api.defaults.headers.authorization = `Bearer ${token}`;
       }
 
       setIsLoading(false);
@@ -63,6 +72,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     ]);
 
     setData({ user, token });
+
+    api.defaults.headers.authorization = `Bearer ${token}`;
   }, []);
 
   const signOut = useCallback(async () => {
